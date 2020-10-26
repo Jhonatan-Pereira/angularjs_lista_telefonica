@@ -20,13 +20,31 @@
 
     angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope) {
       $scope.app = "Lista Telefônica";
+      $scope.contatos = [
+        {nome: "Pedro", telefone: "15156156156"},
+        {nome: "Ana", telefone: "8789156151"},
+        {nome: "Maria", telefone: "65161561"},
+      ]
     });
   </script>
 </head>
 <body ng-controller="listaTelefonicaCtrl">
   <div>
     <div class="jumbotron">
-      <h4>{{app}}</h4>
+      <h3>{{app}}</h3>
+      <table class="table table-striped">
+        <tr>
+          <th>Nome</th>
+          <th>Telefone</th>
+        </tr>
+        <tr ng-repeat="contato in contatos">
+          <!-- <td ng-repeat="(key,value) in contato">
+            {{value}}
+          </td> -->
+          <td>{{contato.nome}}</td>
+          <td>{{contato.telefone}}</td>
+        </tr>
+      </table>
     </div>
   </div>
 </body>
