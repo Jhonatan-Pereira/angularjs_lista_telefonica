@@ -65,7 +65,9 @@
   <div>
     <div class="jumbotron">
       <h3>{{app}}</h3>
-      <table class="table table-striped">
+      <table 
+        ng-show="contatos.length > 0"
+        class="table table-striped">
         <tr>
           <th></th>
           <th>Nome</th>
@@ -119,9 +121,11 @@
         ng-click="adicionarContato(contato)">
         Adicionar contato
       </button>
+      <!-- ng-show="isContatoSelecionado(contatos)" -->
+      <!-- ng-hide="!isContatoSelecionado(contatos)" -->
       <button 
         class="btn btn-danger btn-block"
-        ng-disabled="!isContatoSelecionado(contatos)"
+        ng-if="isContatoSelecionado(contatos)"
         ng-click="apagarContatos(contatos)">
         Apagar contatos
       </button>
