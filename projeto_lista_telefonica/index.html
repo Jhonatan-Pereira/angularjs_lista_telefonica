@@ -95,8 +95,30 @@
         </tr>
       </table>
       <hr>
-      <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome"/>
-      <input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone"/>
+      <form name="contatoForm">
+        <input 
+          class="form-control" 
+          type="text" 
+          ng-model="contato.nome" 
+          placeholder="Nome"
+          name="nome"
+          ng-required="true"
+        />
+        <div ng-if="contatoForm.nome.$invalid" class="alert alert-danger">
+          Preencha o nome!
+        </div>
+        <input 
+          class="form-control" 
+          type="text" 
+          ng-model="contato.telefone" 
+          placeholder="Telefone"
+          name="telefone"
+          ng-required="true"
+        />
+        <div ng-if="contatoForm.telefone.$invalid" class="alert alert-danger">
+          Preencha o telefone!
+        </div>
+      </form>
       <!-- <select 
         class="form-control" 
         ng-model="contato.operadora" 
@@ -117,7 +139,7 @@
       </select>
       <button 
         class="btn btn-primary btn-block"
-        ng-disabled="!contato.nome || !contato.telefone" 
+        ng-disabled="contatoForm.$invalid" 
         ng-click="adicionarContato(contato)">
         Adicionar contato
       </button>
