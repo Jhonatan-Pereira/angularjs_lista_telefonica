@@ -28,6 +28,13 @@
         {nome: "Ana", telefone: "8789156151"},
         {nome: "Maria", telefone: "65161561"},
       ];
+      $scope.operadoras = [
+        {nome: "Oi", codigo: "14", categoria: "celular"},
+        {nome: "Vivo", codigo: "15", categoria: "celular"},
+        {nome: "Tim", codigo: "41", categoria: "celular"},
+        {nome: "GVT", codigo: "25", categoria: "fixo"},
+        {nome: "Embratel", codigo: "21", categoria: "fixo"},
+      ];
       $scope.adicionarContato = function(contato) {
         $scope.contatos.push(angular.copy(contato));
         delete $scope.contato;
@@ -46,6 +53,7 @@
         <tr>
           <th>Nome</th>
           <th>Telefone</th>
+          <th>Operadora</th>
         </tr>
         <tr ng-repeat="contato in contatos">
           <!-- <td ng-repeat="(key,value) in contato">
@@ -53,11 +61,30 @@
           </td> -->
           <td>{{contato.nome}}</td>
           <td>{{contato.telefone}}</td>
+          <td>{{contato.operadora.nome}}</td>
         </tr>
       </table>
       <hr>
       <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome"/>
       <input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone"/>
+      <!-- <select 
+        class="form-control" 
+        ng-model="contato.operadora" 
+        ng-options="operadora.codigo as operadora.nome for operadora in operadoras">
+        <option value="">Selecione uma operadora</option>
+      </select> -->
+      <!-- <select 
+        class="form-control" 
+        ng-model="contato.operadora" 
+        ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
+        <option value="">Selecione uma operadora</option>
+      </select> -->
+      <select 
+        class="form-control" 
+        ng-model="contato.operadora" 
+        ng-options="operadora.nome for operadora in operadoras">
+        <option value="">Selecione uma operadora</option>
+      </select>
       <button 
         class="btn btn-primary btn-block"
         ng-disabled="!contato.nome || !contato.telefone" 
