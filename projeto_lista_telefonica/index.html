@@ -16,6 +16,12 @@
     .form-control {
       margin-bottom: 10px;
     }
+    .selecionado {
+      background-color: yellow;
+    }
+    .negrito {
+      font-weight: bold;
+    }
   </style>
   <script src="../../angular-1.8.0/angular.min.js"></script>
   <script>
@@ -51,14 +57,19 @@
       <h3>{{app}}</h3>
       <table class="table table-striped">
         <tr>
+          <th></th>
           <th>Nome</th>
           <th>Telefone</th>
           <th>Operadora</th>
         </tr>
-        <tr ng-repeat="contato in contatos">
+        <!-- ng-class="{selecionado: contato.selecionado, negrito: contato.selecionado}" -->
+        <tr 
+          ng-class="{'selecionado negrito': contato.selecionado}"
+          ng-repeat="contato in contatos">
           <!-- <td ng-repeat="(key,value) in contato">
             {{value}}
           </td> -->
+          <td><input type="checkbox" ng-model="contato.selecionado"/></td>
           <td>{{contato.nome}}</td>
           <td>{{contato.telefone}}</td>
           <td>{{contato.operadora.nome}}</td>
