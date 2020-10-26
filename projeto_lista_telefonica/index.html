@@ -48,6 +48,16 @@
         // difícil de fazer teste unitário.
         // $scope.contatos.push({nome: $scope.nome, telefone: $scope.telefone});
       };
+      $scope.apagarContatos = function(contatos) {
+        $scope.contatos = contatos.filter(function(contato) {
+          if(!contato.selecionado) return contato;
+        });
+      }
+      $scope.isContatoSelecionado = function(contatos) {
+        return contatos.some(function(contato) {
+          return contato.selecionado;
+        });
+      };
     });
   </script>
 </head>
@@ -99,7 +109,15 @@
       <button 
         class="btn btn-primary btn-block"
         ng-disabled="!contato.nome || !contato.telefone" 
-        ng-click="adicionarContato(contato)">Adicionar contato</button>
+        ng-click="adicionarContato(contato)">
+        Adicionar contato
+      </button>
+      <button 
+        class="btn btn-danger btn-block"
+        ng-disabled="!isContatoSelecionado(contatos)"
+        ng-click="apagarContatos(contatos)">
+        Apagar contatos
+      </button>
     </div>
   </div>
 </body>
