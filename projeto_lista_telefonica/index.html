@@ -13,6 +13,9 @@
       margin-left: auto;
       margin-right: auto;
     }
+    .form-control {
+      margin-bottom: 10px;
+    }
   </style>
   <script src="../../angular-1.8.0/angular.min.js"></script>
   <script>
@@ -24,7 +27,14 @@
         {nome: "Pedro", telefone: "15156156156"},
         {nome: "Ana", telefone: "8789156151"},
         {nome: "Maria", telefone: "65161561"},
-      ]
+      ];
+      $scope.adicionarContato = function(contato) {
+        $scope.contatos.push(angular.copy(contato));
+        delete $scope.contato;
+        // forma errada, porque aplicação fica mais difícil de compreender e
+        // difícil de fazer teste unitário.
+        // $scope.contatos.push({nome: $scope.nome, telefone: $scope.telefone});
+      };
     });
   </script>
 </head>
@@ -45,6 +55,10 @@
           <td>{{contato.telefone}}</td>
         </tr>
       </table>
+      <hr>
+      <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome"/>
+      <input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone"/>
+      <button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)">Adicionar contato</button>
     </div>
   </div>
 </body>
