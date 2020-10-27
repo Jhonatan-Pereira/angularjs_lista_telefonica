@@ -29,54 +29,62 @@
   <script>
     angular.module("listaTelefonica", ["ngMessages"]);
 
-    angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope, uppercaseFilter) {
+    angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope, $http) {
       $scope.app = "Lista Telefônica";
-      $scope.contatos = [
-        {
-          nome: uppercaseFilter("Pedro"), 
-          telefone: "15156156156",
-          data: new Date(), 
-          operadora: {
-            nome: "Vivo",
-            codigo: "15",
-            categoria: "celular"
-          }, 
-          cor: "blue"
-        },
-        {
-          nome: uppercaseFilter("Ana"), 
-          telefone: "8789156151", 
-          data: new Date(),
-          operadora: {
-            nome: "Tim",
-            codigo: "41",
-            categoria: "celular"
-          }, 
-          cor: "red"
-        },
-        {
-          nome: uppercaseFilter("Maria"), 
-          telefone: "65161561", 
-          data: new Date(),
-          operadora: {
-            nome: "GVT",
-            codigo: "25",
-            categoria: "fixo"
-          }, 
-          cor: "yellow"
-        },
-      ];
-      $scope.operadoras = [
-        {nome: "Oi", codigo: "14", categoria: "celular", preco: 2},
-        {nome: "Vivo", codigo: "15", categoria: "celular", preco: 1},
-        {nome: "Tim", codigo: "41", categoria: "celular", preco: 3},
-        {nome: "GVT", codigo: "25", categoria: "fixo", preco: 1},
-        {nome: "Embratel", codigo: "21", categoria: "fixo", preco: 2},
-      ];
+      $scope.contatos = [];
+      $scope.operadoras = [];
+
+      var carregarContatos = function() {
+        // Forma antiga desde a v1.4.3
+        // $http.get("http://localhost:3001/contatos").success(function(data) {
+        //   $scope.contatos = data;
+        // });
+        $http({
+          method: 'GET',
+          url: 'http://localhost:3001/contatos'
+        }).then(function ({data}){
+          // console.log(data)
+          $scope.contatos = data;
+        },function (error){
+          console.error(error)
+        });
+      };
+
+      var carregarOperadoras = function() {
+        // Forma antiga desde a v1.4.3
+        // $http.get("http://localhost:3001/operadoras").success(function(data) {
+        //   $scope.operadoras = data;
+        // });
+        $http({
+          method: 'GET',
+          url: 'http://localhost:3001/operadoras'
+        }).then(function ({data}){
+          // console.log(data)
+          $scope.operadoras = data;
+        },function (error){
+          console.error(error)
+        });
+      };
+
       $scope.adicionarContato = function(contato) {
-        $scope.contatos.push(angular.copy(contato));
-        delete $scope.contato;
-        $scope.contatoForm.$setPristine();
+        // $scope.contatos.push(angular.copy(contato));
+
+        var req = {
+          method: 'POST',
+          url: 'http://localhost:3001/contatos',
+          data: contato
+        };
+
+        $http(req).then(function(response) {
+          delete $scope.contato;
+          $scope.contatoForm.$setPristine();
+          carregarContatos();
+          console.log(response);
+        }, function(error){
+          console.error(error)
+        });
+
+
         // forma errada, porque aplicação fica mais difícil de compreender e
         // difícil de fazer teste unitário.
         // $scope.contatos.push({nome: $scope.nome, telefone: $scope.telefone});
@@ -95,6 +103,9 @@
         $scope.criterioDeOrdenacao = campo;
         $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
       };
+
+      carregarContatos();
+      carregarOperadoras();
     });
   </script>
 </head>
