@@ -24,8 +24,9 @@
     }
   </style>
   <script src="../../angular-1.8.0/angular.min.js"></script>
+  <script src="../../angular-1.8.0/angular-messages.min.js"></script>
   <script>
-    angular.module("listaTelefonica", []);
+    angular.module("listaTelefonica", ["ngMessages"]);
 
     angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope) {
       $scope.app = "Lista Telefônica";
@@ -106,11 +107,13 @@
           ng-required="true"
           ng-minlength="10"
         />
-        <div ng-show="contatoForm.nome.$error.required && contatoForm.nome.$dirty" class="alert alert-danger">
-          Preencha o nome!
-        </div>
-        <div ng-show="contatoForm.nome.$error.minlength" class="alert alert-danger">
-          O campo no mínimo deve ter 10 caracteres.
+        <div ng-messages="contatoForm.nome.$error">
+          <div ng-message="required" class="alert alert-danger">
+            Preencha o nome!
+          </div>
+          <div ng-message="minlength" class="alert alert-danger">
+            O campo no mínimo deve ter 10 caracteres.
+          </div>
         </div>
         <input 
           class="form-control" 
@@ -121,11 +124,13 @@
           ng-required="true"
           ng-pattern="/^\d{4,5}-\d{4}$/"
         />
-        <div ng-show="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty" class="alert alert-danger">
-          Preencha o telefone!
-        </div>
-        <div ng-show="contatoForm.telefone.$error.pattern" class="alert alert-danger">
-          O campo telefone deve ter o formato DDDDD-DDDD!
+        <div ng-messages="contatoForm.telefone.$error">
+          <div ng-message="required" class="alert alert-danger">
+            Preencha o telefone!
+          </div>
+          <div ng-message="pattern" class="alert alert-danger">
+            O campo telefone deve ter o formato DDDDD-DDDD!
+          </div>
         </div>
       </form>
       <!-- <select 
