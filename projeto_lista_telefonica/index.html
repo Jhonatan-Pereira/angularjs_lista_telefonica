@@ -25,6 +25,7 @@
   </style>
   <script src="../../angular-1.8.0/angular.min.js"></script>
   <script src="../../angular-1.8.0/angular-messages.min.js"></script>
+  <script src="../../angular-1.8.0/i18n/angular-locale_pt-br.js"></script>
   <script>
     angular.module("listaTelefonica", ["ngMessages"]);
 
@@ -66,11 +67,11 @@
         },
       ];
       $scope.operadoras = [
-        {nome: "Oi", codigo: "14", categoria: "celular"},
-        {nome: "Vivo", codigo: "15", categoria: "celular"},
-        {nome: "Tim", codigo: "41", categoria: "celular"},
-        {nome: "GVT", codigo: "25", categoria: "fixo"},
-        {nome: "Embratel", codigo: "21", categoria: "fixo"},
+        {nome: "Oi", codigo: "14", categoria: "celular", preco: 2},
+        {nome: "Vivo", codigo: "15", categoria: "celular", preco: 1},
+        {nome: "Tim", codigo: "41", categoria: "celular", preco: 3},
+        {nome: "GVT", codigo: "25", categoria: "fixo", preco: 1},
+        {nome: "Embratel", codigo: "21", categoria: "fixo", preco: 2},
       ];
       $scope.adicionarContato = function(contato) {
         $scope.contatos.push(angular.copy(contato));
@@ -192,7 +193,7 @@
       <select 
         class="form-control" 
         ng-model="contato.operadora" 
-        ng-options="operadora.nome for operadora in operadoras | orderBy:'nome'">
+        ng-options="operadora.nome + ' ('+ (operadora.preco | currency) +')' for operadora in operadoras | orderBy:'nome'">
         <option value="">Selecione uma operadora</option>
       </select>
       <button 
