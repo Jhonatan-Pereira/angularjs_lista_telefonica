@@ -29,11 +29,11 @@
   <script>
     angular.module("listaTelefonica", ["ngMessages"]);
 
-    angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope) {
+    angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope, $filter) {
       $scope.app = "Lista Telefônica";
       $scope.contatos = [
         {
-          nome: "Pedro", 
+          nome: $filter('uppercase')("Pedro"), 
           telefone: "15156156156",
           data: new Date(), 
           operadora: {
@@ -44,7 +44,7 @@
           cor: "blue"
         },
         {
-          nome: "Ana", 
+          nome: $filter('uppercase')("Ana"), 
           telefone: "8789156151", 
           data: new Date(),
           operadora: {
@@ -55,7 +55,7 @@
           cor: "red"
         },
         {
-          nome: "Maria", 
+          nome: $filter('uppercase')("Maria"), 
           telefone: "65161561", 
           data: new Date(),
           operadora: {
@@ -129,7 +129,7 @@
             {{value}}
           </td> -->
           <td><input type="checkbox" ng-model="contato.selecionado"/></td>
-          <td>{{contato.nome | uppercase}}</td>
+          <td>{{contato.nome}}</td>
           <td>{{contato.telefone}}</td>
           <td>{{contato.operadora.nome | lowercase}}</td>
           <!-- <td>
