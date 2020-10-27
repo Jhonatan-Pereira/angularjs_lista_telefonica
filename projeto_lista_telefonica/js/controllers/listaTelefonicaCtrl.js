@@ -1,4 +1,4 @@
-angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, contatosAPI, operadorasAPI) {
+angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, config, contatosAPI, operadorasAPI) {
   $scope.app = "Lista Telefônica";
   $scope.contatos = [];
   $scope.operadoras = [];
@@ -9,6 +9,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
         $scope.contatos = data;
       }, function (error) {
         console.error(error)
+        $scope.error = config.messageErrorServidor
       });
   };
 
@@ -18,6 +19,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
         $scope.operadoras = data;
       }, function (error) {
         console.error(error)
+        $scope.error = config.messageErrorServidor
       });
   };
 
@@ -30,6 +32,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
         console.log(response);
       }, function (error) {
         console.error(error)
+        $scope.error = config.messageErrorServidor
       });
   };
 
