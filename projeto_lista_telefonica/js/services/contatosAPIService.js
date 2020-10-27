@@ -1,4 +1,4 @@
-angular.module("listaTelefonica").factory("contatosAPI", function($http, config) {
+angular.module("listaTelefonica").factory("contatosAPI", function($http, config, serialGenerator) {
   var _getContatos = function() {
     return $http({
       method: 'GET',
@@ -7,6 +7,8 @@ angular.module("listaTelefonica").factory("contatosAPI", function($http, config)
   };
   
   var _saveContato = function(contato) {
+    contato.serial = serialGenerator.generate();
+    contato.data = new Date();
     var req = {
       method: 'POST',
       url: config.baseUrl + '/contatos',
