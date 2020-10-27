@@ -29,11 +29,11 @@
   <script>
     angular.module("listaTelefonica", ["ngMessages"]);
 
-    angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope, $filter) {
+    angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope, uppercaseFilter) {
       $scope.app = "Lista Telefônica";
       $scope.contatos = [
         {
-          nome: $filter('uppercase')("Pedro"), 
+          nome: uppercaseFilter("Pedro"), 
           telefone: "15156156156",
           data: new Date(), 
           operadora: {
@@ -44,7 +44,7 @@
           cor: "blue"
         },
         {
-          nome: $filter('uppercase')("Ana"), 
+          nome: uppercaseFilter("Ana"), 
           telefone: "8789156151", 
           data: new Date(),
           operadora: {
@@ -55,7 +55,7 @@
           cor: "red"
         },
         {
-          nome: $filter('uppercase')("Maria"), 
+          nome: uppercaseFilter("Maria"), 
           telefone: "65161561", 
           data: new Date(),
           operadora: {
@@ -121,10 +121,10 @@
         </tr>
         <!-- ng-class="{selecionado: contato.selecionado, negrito: contato.selecionado}" -->
         <!-- ng-repeat="contato in contatos | filter:criterioDeBusca | orderBy:'-nome'" -->
-        <!-- ng-repeat="contato in contatos | filter:criterioDeBusca | orderBy:'nome':true" -->
+        <!-- ng-repeat="contato in contatos | limitTo:2 | filter:criterioDeBusca | orderBy:'nome':true" -->
         <tr 
           ng-class="{'selecionado negrito': contato.selecionado}"
-          ng-repeat="contato in contatos | limitTo:2 | filter:{nome:criterioDeBusca} | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
+          ng-repeat="contato in contatos | filter:{nome:criterioDeBusca} | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
           <!-- <td ng-repeat="(key,value) in contato">
             {{value}}
           </td> -->
@@ -210,7 +210,6 @@
         ng-click="apagarContatos(contatos)">
         Apagar contatos
       </button>
-      {{100.24 | number:1}}
     </div>
     <!-- <div ng-include="'footer.html'"></div> -->
   </div>
