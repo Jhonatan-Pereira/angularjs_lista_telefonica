@@ -28,13 +28,14 @@
   <script src="./js/filters/ellipsisFilter.js"></script>
 
   <script src="./js/directives/uiAlertDirective.js"></script>
+  <script src="./js/directives/uiDateDirective.js"></script>
 </head>
 <body ng-controller="listaTelefonicaCtrl">
   <div>
     <div class="jumbotron">
       <h3>{{app}}</h3>
       <!-- message="error" -->
-      <ui-alert title="Ops, aconteceu um problema!">
+      <ui-alert ng-show="error" title="Ops, aconteceu um problema!">
         {{error}}
       </ui-alert>
       <input 
@@ -76,8 +77,8 @@
           ng-required="true"
           ng-minlength="10"
         />
-        <div ng-messages="contatoForm.nome.$error">
-          <div ng-message="required" class="alert alert-danger" ng-if="contatoForm.nome.$dirty">
+        <div ng-show="contatoForm.nome.$dirty" ng-messages="contatoForm.nome.$error">
+          <div ng-message="required" class="alert alert-danger">
             Preencha o nome!
           </div>
           <div ng-message="minlength" class="alert alert-danger">
@@ -93,14 +94,23 @@
           ng-required="true"
           ng-pattern="/^\d{4,5}-\d{4}$/"
         />
-        <div ng-messages="contatoForm.telefone.$error">
-          <div ng-message="required" class="alert alert-danger" ng-if="contatoForm.telefone.$dirty">
+        <div ng-show="contatoForm.telefone.$dirty" ng-messages="contatoForm.telefone.$error">
+          <div ng-message="required" class="alert alert-danger">
             Preencha o telefone!
           </div>
           <div ng-message="pattern" class="alert alert-danger">
             O campo telefone deve ter o formato DDDDD-DDDD!
           </div>
         </div>
+        data: {{contato.data}}
+        <input 
+          class="form-control" 
+          type="text" 
+          ng-model="contato.data" 
+          placeholder="Data"
+          name="data"
+          ui-date
+        />
       </form>
       <select 
         class="form-control" 
