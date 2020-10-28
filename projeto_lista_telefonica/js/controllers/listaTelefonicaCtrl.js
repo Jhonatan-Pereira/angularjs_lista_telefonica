@@ -2,6 +2,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
   $scope.app = "Lista Telefônica";
   $scope.contatos = contatos.data;
   $scope.operadoras = operadoras.data;
+  $scope.hasContatoSelecionado = false;
 
   var init = function() {
     calcularImpostos($scope.contatos);
@@ -42,10 +43,16 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
     $scope.contatos = contatos.filter(function (contato) {
       if (!contato.selecionado) return contato;
     });
+    $scope.verificarContatosSelecionados($scope.contatos);
   };
 
-  $scope.isContatoSelecionado = function (contatos) {
-    return contatos.some(function (contato) {
+  $scope.selecionarContato = function(contato) {
+    contato.selecionado = !contato.selecionado;
+    $scope.verificarContatosSelecionados($scope.contatos);
+  }
+
+  $scope.verificarContatosSelecionados = function (contatos) {
+    $scope.hasContatoSelecionado = contatos.some(function (contato) {
       return contato.selecionado;
     });
   };
