@@ -11,16 +11,19 @@
   <script src="../../angular-1.8.0/angular.min.js"></script>
   <script src="../../angular-1.8.0/angular-messages.min.js"></script>
   <script src="../../angular-1.8.0/i18n/angular-locale_pt-br.js"></script>
+  <script src="../../angular-1.8.0/angular-route.js"></script>
 
   <script src="./lib/serialGenerator.js"></script>
   <script src="./lib/ui.js"></script>
 
   <script src="./js/app.js"></script>
-  <script src="./js/configValue.js"></script>
 
+  <script src="./js/configValue.js"></script>
+  <script src="./js/config/routeConfig.js"></script>
   <script src="./js/config/serialGeneratorConfig.js"></script>
 
   <script src="./js/controllers/listaTelefonicaCtrl.js"></script>
+  <script src="./js/controllers/novoContatoCtrl.js"></script>
 
   <!-- <script src="./js/providers/serialGeneratorService.js"></script> -->
 
@@ -34,127 +37,8 @@
   <script src="./js/directives/uiDateDirective.js"></script>
   <!-- <script src="./js/directives/uiAccordion.js"></script> -->
 </head>
-<body ng-controller="listaTelefonicaCtrl">
-  <div>
-    <div class="jumbotron">
-
-      <ui-accordions>
-        <ui-accordion title="accordion 1">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-          when an unknown printer took a galley of type and scrambled it to make a type 
-          specimen book. It has survived not only five centuries, but also the leap 
-          into electronic typesetting, remaining essentially unchanged. It was 
-          popularised in the 1960s with the release of Letraset sheets containing.
-        </ui-accordion>
-  
-        <ui-accordion title="accordion 2">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-          when an unknown printer took a galley of type and scrambled it to make a type 
-          specimen book. It has survived not only five centuries, but also the leap 
-          into electronic typesetting, remaining essentially unchanged. It was 
-          popularised in the 1960s with the release of Letraset sheets containing.
-        </ui-accordion>
-      </ui-accordions>
-
-      <h3>{{app}}</h3>
-      <ui-alert ng-show="error" title="Ops, aconteceu um problema!">
-        {{error}}
-      </ui-alert>
-      <input 
-        class="form-control" 
-        type="text" 
-        ng-model="criterioDeBusca" 
-        placeholder="O que você está buscando?"
-      />
-      <table 
-        ng-show="contatos.length > 0"
-        class="table table-striped">
-        <tr>
-          <th></th>
-          <th>Serial</th>
-          <th><a href="" ng-click="ordenarPor('nome')"/>Nome</th>
-          <th><a href="" ng-click="ordenarPor('telefone')"/>Telefone</th>
-          <th>Operadora</th>
-          <th>Data</th>
-        </tr>
-        <tr 
-          ng-class="{'selecionado negrito': contato.selecionado}"
-          ng-repeat="contato in contatos | filter:{nome:criterioDeBusca} | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao">
-          <td><input type="checkbox" ng-model="contato.selecionado"/></td>
-          <td>{{contato.serial}}</td>
-          <td>{{contato.nome | name | ellipsis:10}}</td>
-          <td>{{contato.telefone}}</td>
-          <td>{{contato.operadora.nome | lowercase}}</td>
-          <td>{{contato.data | date:'dd/MM/yyyy HH:mm'}}</td>
-        </tr>
-      </table>
-      <hr>
-      <form name="contatoForm">
-        <input 
-          class="form-control" 
-          type="text" 
-          ng-model="contato.nome" 
-          placeholder="Nome"
-          name="nome"
-          ng-required="true"
-          ng-minlength="10"
-        />
-        <div ng-show="contatoForm.nome.$dirty" ng-messages="contatoForm.nome.$error">
-          <div ng-message="required" class="alert alert-danger">
-            Preencha o nome!
-          </div>
-          <div ng-message="minlength" class="alert alert-danger">
-            O campo no mínimo deve ter 10 caracteres.
-          </div>
-        </div>
-        <input 
-          class="form-control" 
-          type="text" 
-          ng-model="contato.telefone" 
-          placeholder="Telefone"
-          name="telefone"
-          ng-required="true"
-          ng-pattern="/^\d{4,5}-\d{4}$/"
-        />
-        <div ng-show="contatoForm.telefone.$dirty" ng-messages="contatoForm.telefone.$error">
-          <div ng-message="required" class="alert alert-danger">
-            Preencha o telefone!
-          </div>
-          <div ng-message="pattern" class="alert alert-danger">
-            O campo telefone deve ter o formato DDDDD-DDDD!
-          </div>
-        </div>
-        <input 
-          class="form-control" 
-          type="text" 
-          ng-model="contato.data" 
-          placeholder="Data"
-          name="data"
-          ui-date
-        />
-      </form>
-      <select 
-        class="form-control" 
-        ng-model="contato.operadora" 
-        ng-options="operadora.nome + ' ('+ (operadora.preco | currency) +')' for operadora in operadoras | orderBy:'nome'">
-        <option value="">Selecione uma operadora</option>
-      </select>
-      <button 
-        class="btn btn-primary btn-block"
-        ng-disabled="contatoForm.$invalid" 
-        ng-click="adicionarContato(contato)">
-        Adicionar contato
-      </button>
-      <button 
-        class="btn btn-danger btn-block"
-        ng-if="isContatoSelecionado(contatos)"
-        ng-click="apagarContatos(contatos)">
-        Apagar contatos
-      </button>
-    </div>
+<body>   
+    <ng-view></ng-view> 
     <div ng-include="'view/footer.html'"></div>
-  </div>
 </body>
 </html>

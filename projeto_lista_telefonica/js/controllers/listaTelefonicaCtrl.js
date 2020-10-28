@@ -2,9 +2,6 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
   $scope.app = "Lista Telefônica";
   $scope.contatos = [];
   $scope.operadoras = [];
-  // $scope.contato = {
-  //   data: "793335600000"
-  // }
 
   var carregarContatos = function () {
     contatosAPI.getContatos()
