@@ -29,12 +29,33 @@
 
   <script src="./js/directives/uiAlertDirective.js"></script>
   <script src="./js/directives/uiDateDirective.js"></script>
+  <script src="./js/directives/uiAccordion.js"></script>
 </head>
 <body ng-controller="listaTelefonicaCtrl">
   <div>
     <div class="jumbotron">
+
+      <ui-accordions>
+        <ui-accordion title="accordion 1">
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+          when an unknown printer took a galley of type and scrambled it to make a type 
+          specimen book. It has survived not only five centuries, but also the leap 
+          into electronic typesetting, remaining essentially unchanged. It was 
+          popularised in the 1960s with the release of Letraset sheets containing.
+        </ui-accordion>
+  
+        <ui-accordion title="accordion 2">
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+          when an unknown printer took a galley of type and scrambled it to make a type 
+          specimen book. It has survived not only five centuries, but also the leap 
+          into electronic typesetting, remaining essentially unchanged. It was 
+          popularised in the 1960s with the release of Letraset sheets containing.
+        </ui-accordion>
+      </ui-accordions>
+
       <h3>{{app}}</h3>
-      <!-- message="error" -->
       <ui-alert ng-show="error" title="Ops, aconteceu um problema!">
         {{error}}
       </ui-alert>
@@ -102,7 +123,6 @@
             O campo telefone deve ter o formato DDDDD-DDDD!
           </div>
         </div>
-        data: {{contato.data}}
         <input 
           class="form-control" 
           type="text" 
@@ -131,7 +151,7 @@
         Apagar contatos
       </button>
     </div>
-    <!-- <div ng-include="'view/footer.html'"></div> -->
+    <div ng-include="'view/footer.html'"></div>
   </div>
 </body>
 </html>
