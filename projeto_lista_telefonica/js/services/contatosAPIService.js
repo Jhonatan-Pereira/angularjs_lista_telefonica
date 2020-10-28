@@ -18,8 +18,16 @@ angular.module("listaTelefonica").factory("contatosAPI", function($http, config,
     return $http(req);
   };
 
+  var _getContato = function(id) {
+    return $http({
+      method: 'GET',
+      url: config.baseUrl + '/contatos/' + id
+    });
+  };
+
   return {
     getContatos: _getContatos,
+    getContato: _getContato,
     saveContato: _saveContato
   };
 });
