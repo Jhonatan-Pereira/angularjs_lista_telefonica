@@ -46,12 +46,12 @@
       ng-repeat="contato in contatos | filter:{nome:criterioDeBusca} | orderBy:criterioDeOrdenacao:direcaoDaOrdenacao"
     >
       <td><input type="checkbox" ng-click="selecionarContato(contato)"/></td>
-      <td>{{contato.serial}}</td>
+      <td>{{::contato.serial}}</td>
       <td><a href="#/detalhesContato/{{contato.id}}">{{contato.nome | name | ellipsis:15}}</a></td>
-      <td>{{contato.telefone}}</td>
-      <td>{{contato.operadora.nome | lowercase}}</td>
-      <td>{{contato.operadora.precoComImposto | currency}}</td>
-      <td>{{contato.data | date:'dd/MM/yyyy HH:mm'}}</td>
+      <td>{{::contato.telefone}}</td>
+      <td>{{::contato.operadora.nome | lowercase}}</td>
+      <td>{{::contato.operadora.precoComImposto | currency}}</td>
+      <td>{{::contato.data | date:'dd/MM/yyyy HH:mm'}}</td>
     </tr>
   </table>
   <hr>
